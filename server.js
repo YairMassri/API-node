@@ -40,21 +40,6 @@ app.get('/stockMarket/:id', (req, res) => {
 
      res.json(stock);
  });
- app.put('/lions/:id', (req, res) => {
-    var update = req.body;
-    if(update.id){
-        delete update.id;
-    }
- 
-    var lion = lions.findIndex(lion => lion.id == req.params.id);
-    if(!lions[lion]){
-        res.send();
-    }
-    else{
-        var updateLion = Object.assign(lions[lion], update);
-        res.json(updateLion);
-    }
- })
 
  app.put('/stockMarket/:id', (req, res) => {
      var update = req.body;
@@ -77,7 +62,8 @@ app.get('/stockMarket/:id', (req, res) => {
     if (!stockMarket[stock]) {
         res.send();
     } else {
-        var deleteStock = Object.assign(stockMarket[stock], updated);
+        var deleteStock = stockMarket[stock];
+        stockMarket.splice(stock, 1)
         res.json(deleteStock);
     }
  });
